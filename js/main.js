@@ -1,7 +1,7 @@
 /*----- constants -----*/
 const players = {
-    '1': '#DE413A', //redish
-    '-1': '#C26225', //orangeish
+    '1': 'firebrick', //redish
+    '-1': 'darkgoldenrod', //orangeish
     'null': 'transparent',
 }
 
@@ -12,15 +12,54 @@ const winCombo = [
 ]
 /*----- app's state (variables) -----*/
 let board = [];
-let turn = null;
-let winner = null;
+let turn;
+let winner;
 /*----- cached element references -----*/
-let cellEls = document.querySelectorAll('#gameboard > div');
+let cellEls = Array.from(document.querySelectorAll('#gameBoard > div'));
+let msgEl = document.getElementById('msg');
+console.log(msgEl)
 /*----- event listeners -----*/
+document.getElementById('gameBoard').addEventListener('click', handleClick);
+
 /*----- functions -----*/
+init();
 
+function init() {
+    board =
+    [
+        null, 1, null, //top
+        null, null, -1, //mid
+        null, null, null //bottom
+    ];
 
+    turn = 1 //set this to random later
+    winner = null; //1, -1, 't', null
+	renderBoard();
+	renderMessage();
+};
 
+function renderBoard() {
+    board.forEach(function(cellVal, cellIdx) { //look up arguments for forEach. This was a blocker.
+		cellEls[cellIdx].style.backgroundColor = players[cellVal];
+		console.log(cellIdx + '>' + cellVal)
+    });
+}
+
+function renderMessage() {
+	if (winner) {
+		if (winner === 't') {
+			msgEl.innerHTML = `Cat's Game!`;
+		} else {
+			msgEl.innerHTML = `<span style="color: ${players[turn]}">${players[turn].toUpperCase()}</span> wins!`;	
+		}
+	} else {
+		msgEl.innerHTML = `<span style="color: ${players[turn]}">${players[turn].toUpperCase()}'s</span> turn!`;
+	}
+}
+
+function handleClick() {
+	console.log('click')
+}
 
 
 
@@ -40,19 +79,19 @@ let cellEls = document.querySelectorAll('#gameboard > div');
 
 4) Upon loading the app should:
 	4.1) Initialize the state variables:
-		4.1.1) Initialize the board array to 9 nulls to represent empty squares. The 9 elements will "map" to each square, where index 0 maps to the top-left square and index 8 maps to the bottom-right square.
-		4.1.2) Initialize whose turn it is to 1 (player 'X'). Player 'O' will be represented by -1.
-		4.1.3) Initialize winner to null to represent that there is no winner or tie yet. Winner will hold the player value (1 or -1) if there's a winner. Winner will hold a 'T' if there's a tie. 
+		--> 4.1.1) Initialize the board array to 9 nulls to represent empty squares. The 9 elements will "map" to each square, where index 0 maps to the top-left square and index 8 maps to the bottom-right square.
+		--> 4.1.2) Initialize whose turn it is to 1 (player 'X'). Player 'O' will be represented by -1.
+		--> 4.1.3) Initialize winner to null to represent that there is no winner or tie yet. Winner will hold the player value (1 or -1) if there's a winner. Winner will hold a 'T' if there's a tie. 
 	4.2) Render those state variables to the page:
 		4.2.1) Render the board:
-			4.2.1.1) Loop over each of the 9 elements that represent the squares on the page, and for each iteration:
-				4.2.1.1.2) Use the index of the iteration to access the mapped value from the board array.
-				4.3.1.1.3) Set the background color of the current element by using the value as a key on the colors lookup object (constant).
+			--> 4.2.1.1) Loop over each of the 9 elements that represent the squares on the page, and for each iteration:
+			-->	4.2.1.1.2) Use the index of the iteration to access the mapped value from the board array.
+			-->	4.3.1.1.3) Set the background color of the current element by using the value as a key on the colors lookup object (constant).
 		4.2.2) Render a message:
-			4.2.2.1) If winner has a value other than null (game still in progress), render whose turn it is - use the color name for the player, converting it to upper case.
-			4.2.2.2) If winner is equal to 'T' (tie), render a tie message.
-			4.2.2.3) Otherwise, render a congratulatory message to which player has won - use the color name for the player, converting it to uppercase.
-	4.3) Wait for the user to click a square
+			--> 4.2.2.1) If winner has a value other than null (game still in progress), render whose turn it is - use the color name for the player, converting it to upper case.
+			-- >4.2.2.2) If winner is equal to 'T' (tie), render a tie message.
+			--> 4.2.2.3) Otherwise, render a congratulatory message to which player has won - use the color name for the player, converting it to uppercase.
+	--> 4.3) Wait for the user to click a square
 
 5) Handle a player clicking a square:
 	5.1) Obtain the index of the square that was clicked by either:
