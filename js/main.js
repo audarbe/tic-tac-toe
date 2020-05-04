@@ -1,8 +1,8 @@
 /*----- constants -----*/
 const players = {
-    '1': 'firebrick', //redish
-    '-1': 'darkgoldenrod', //orangeish
-    'null': 'transparent',
+    '1': ['burlywood', 'X'], //redish
+    '-1': ['lightsteelblue', 'O'], //orangeish
+	'null': ['lightskyblue', ' '],
 }
 
 const winCombo = [
@@ -18,6 +18,7 @@ let winner;
 let cellEls = Array.from(document.querySelectorAll('#gameBoard > div'));
 let msgEl = document.getElementById('msg');
 let resetButton = document.getElementById('reset-button');
+let body = document.querySelector('body');
 
 /*----- event listeners -----*/
 document.getElementById('gameBoard').addEventListener('click', handleClick);
@@ -39,22 +40,17 @@ function init() {
 
 function render() {
 	board.forEach(function(cellVal, cellIdx) { //look up params for forEach. This was a blocker.
-		cellEls[cellIdx].style.backgroundColor = players[cellVal];
+		if (winner ? body.style.backgroundColor = players[null][0] : body.style.backgroundColor = players[turn][0]); // why is this is breaking cat's game?
+		cellEls[cellIdx].style.color = players[cellVal][0];
+		cellEls[cellIdx].innerText = players[cellVal][1];
 	});
 	if (winner === 't') {
-		msgEl.innerHTML = `Cat's Game!`;
+		msgEl.innerHTML = `CAT'S GAME!`;
 	} else if (winner) {
-		msgEl.innerHTML = `<span style="color: ${players[winner]}">${players[winner].toUpperCase()}'s</span> wins!`;
+		msgEl.innerHTML = `<span style="color: ${players[winner][1]}">${players[winner][1].toUpperCase()}'s</span> WINS!`;
 	} else {
-		msgEl.innerHTML = `<span style="color: ${players[turn]}">${players[turn].toUpperCase()}'s</span> turn!`;
+		msgEl.innerHTML = `<span style="color: ${players[turn][1]}">${players[turn][1].toUpperCase()}'s</span> TURN!`;
 	}
-	// if (winner) {
-	// 	msgEl.innerHTML = `<span style="color: ${players[turn]}">${players[turn].toUpperCase()}'s</span> wins!`;
-	// } else if (winner === 't') {
-	// 	msgEl.innerHTML = `Cat's Game!`;
-	// } else {
-	// 	msgEl.innerHTML = `<span style="color: ${players[turn]}">${players[turn].toUpperCase()}'s</span> turn!`;
-	// }
 }
 
 function handleClick(event) {
@@ -64,10 +60,8 @@ function handleClick(event) {
 	}
 	board[currentCellIdx] = turn;
 	turn *= -1;
-	console.log(board[currentCellIdx]);
 	winner = getWinner();
 	render();
-	
 }
 
 function getWinner() {
@@ -82,6 +76,100 @@ function getWinner() {
 			return 't';
 		}
 	};
+
+
+
+	
+
+//----- minimium ---------------------------------------------
+
+// /*----- constants -----*/
+// const players = {
+//     '1': 'firebrick', //redish
+//     '-1': 'darkgoldenrod', //orangeish
+//     'null': 'transparent',
+// }
+
+// const winCombo = [
+//     [0, 1, 2], [3, 4, 5], [6, 7, 8], //horizonal combos
+//     [0, 3, 6], [1, 4, 7], [2, 5, 8], //vertical combos
+//     [0, 4, 8], [2, 4, 6] //diagonal combos
+// ]
+// /*----- app's state (variables) -----*/
+// let board = [];
+// let turn;
+// let winner;
+// /*----- cached element references -----*/
+// let cellEls = Array.from(document.querySelectorAll('#gameBoard > div'));
+// let msgEl = document.getElementById('msg');
+// let resetButton = document.getElementById('reset-button');
+
+// /*----- event listeners -----*/
+// document.getElementById('gameBoard').addEventListener('click', handleClick);
+// resetButton.addEventListener('click', init);
+// /*----- functions -----*/
+// init();
+
+// function init() {
+//     board =
+//     [
+//         null, null, null, //top
+//         null, null, null, //mid
+//         null, null, null //bottom
+//     ];
+//     turn = 1 //set this to random later
+//     winner = null;
+// 	render();
+// };
+
+// function render() {
+// 	board.forEach(function(cellVal, cellIdx) { //look up params for forEach. This was a blocker.
+// 		cellEls[cellIdx].style.backgroundColor = players[cellVal];
+// 	});
+// 	if (winner === 't') {
+// 		msgEl.innerHTML = `CAT'S GAME!`;
+// 	} else if (winner) {
+// 		msgEl.innerHTML = `<span style="color: ${players[winner]}">${players[winner].toUpperCase()}'s</span> WINS!`;
+// 	} else {
+// 		msgEl.innerHTML = `<span style="color: ${players[turn]}">${players[turn].toUpperCase()}'s</span> TURN!`;
+// 	}
+// }
+
+// function handleClick(event) {
+// 	let currentCellIdx = cellEls.indexOf(event.target);
+// 	if (board[currentCellIdx] || winner ) {
+// 		return;
+// 	}
+// 	board[currentCellIdx] = turn;
+// 	turn *= -1;
+// 	winner = getWinner();
+// 	render();
+// }
+
+// function getWinner() {
+// 		for (let i = 0; i < winCombo.length; i++) {
+// 			if (Math.abs(board[winCombo[i][0]] + board[winCombo[i][1]] + board[winCombo[i][2]]) === 3) {
+// 				return board[winCombo[i][0]];
+// 			};
+// 		};
+// 		if (board.includes(null)) {
+// 			return null;
+// 		} else {
+// 			return 't';
+// 		}
+// 	};
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*----- pseudocode -----
@@ -129,9 +217,6 @@ function getWinner() {
 	-->5.7) If there's no winner, check if there's a tie:
 		5.7.1) Set winner to 'T' if there are no more nulls in the board array.
 	-->5.8) All state has been updated, so render the state to the page (step 4.2).
-		
-
 -->6) Handle a player clicking the replay button:
 	--> 6.1) Do steps 4.1 (initialize the state variables) and 4.2 (render).
-
 ----- end pseudocode -----*/
