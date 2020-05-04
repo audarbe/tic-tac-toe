@@ -30,8 +30,9 @@ function init() {
         null, null, null, //top
         null, null, null, //mid
         null, null, null //bottom
-    ];
-    turn = Object.keys(players)[Math.round(Math.random() * 1)]; //Random start
+	];
+	turn = 1;
+    // turn = Object.keys(players)[Math.round(Math.random() * 1)]; //Random start was breaking diagonal combos. I left it out untilli figure it out.
     winner = null;
 	render();
 };
@@ -64,7 +65,7 @@ function handleClick(event) {
 
 function getWinner() {
 		for (let i = 0; i < winCombo.length; i++) {
-			if (Math.abs(board[winCombo[i][0]] + board[winCombo[i][1]] + board[winCombo[i][2]]) === 3) {
+			if (Math.abs(board[winCombo[i][0]] + board[winCombo[i][1]] + board[winCombo[i][2]]) === 3) { //there's something weird going on here with diagonal wins. I think it had something to do with the random start
 				return board[winCombo[i][0]];
 			};
 		};
