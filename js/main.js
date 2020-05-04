@@ -1,7 +1,7 @@
 /*----- constants -----*/
 const players = {
-    '1': ['burlywood', 'X'], //redish
-    '-1': ['lightsteelblue', 'O'], //orangeish
+    '1': ['burlywood', 'X'],
+    '-1': ['lightsteelblue', 'O'],
 	'null': ['yellowgreen', ' '],
 }
 
@@ -10,19 +10,21 @@ const winCombo = [
     [0, 3, 6], [1, 4, 7], [2, 5, 8], //vertical combos
     [0, 4, 8], [2, 4, 6] //diagonal combos
 ]
+
 /*----- app's state (variables) -----*/
 let board = [];
 let turn;
 let winner;
+
 /*----- cached element references -----*/
-let cellEls = Array.from(document.querySelectorAll('#gameBoard > div'));
+let cellEls = Array.from(document.querySelectorAll('#gameBoard > div')); //pops nodelist into an array
 let msgEl = document.getElementById('msg');
-let resetButton = document.getElementById('reset-button');
 let body = document.querySelector('body');
 
 /*----- event listeners -----*/
 document.getElementById('gameBoard').addEventListener('click', handleClick);
-resetButton.addEventListener('click', init);
+document.getElementById('reset-button').addEventListener('click', init);
+
 /*----- functions -----*/
 function init() {
     board =
@@ -54,9 +56,7 @@ function render() {
 
 function handleClick(event) {
 	let currentCellIdx = cellEls.indexOf(event.target);
-	if (board[currentCellIdx] || winner ) {
-		return;
-	}
+	if (board[currentCellIdx] || winner ) return;
 	board[currentCellIdx] = turn;
 	turn *= -1;
 	winner = getWinner();
@@ -80,7 +80,7 @@ init();
 
 	
 
-//----- minimium ---------------------------------------------
+//----- min ---------------------------------------------
 
 // /*----- constants -----*/
 // const players = {

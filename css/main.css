@@ -43,13 +43,8 @@ main {
     background-color: white;
     border-radius: 2rem;
     padding: 2rem;
-    color: gray;
-    
-    
+    color: gray;    
  }
-
- /* transform: rotate3d(0, -10, 0, .02turn); */
-
 
 .cell {
     border-style: solid;
@@ -62,15 +57,15 @@ main {
 }
 
 /* I tried */
-#c0 {border-width: 0 5px 5px 0;}
-#c1 {border-width: 0 5px 5px 5px;}
-#c2 {border-width: 0 0 5px 5px;}
-#c3 {border-width: 5px 5px 5px 0;}
-#c4 {border-width: 5px 5px 5px 5px;}
-#c5 {border-width: 5px 0 5px 5px;}
-#c6 {border-width: 5px 5px 0 0;}
-#c7 {border-width: 5px 5px 0 5px;}
-#c8 {border-width: 5px 0 0 5px;}
+#c0 {border-width: 0    5px 5px   0 ;}
+#c1 {border-width: 0    5px 5px 5px ;}
+#c2 {border-width: 0    0   5px 5px ;}
+#c3 {border-width: 5px  5px 5px 0   ;}
+#c4 {border-width: 5px  5px 5px 5px ;}
+#c5 {border-width: 5px  0   5px 5px ;}
+#c6 {border-width: 5px  5px 0   0   ;}
+#c7 {border-width: 5px  5px 0   5px ;}
+#c8 {border-width: 5px  0   0   5px ;}
 
 
 .reset-button {
