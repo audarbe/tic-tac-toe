@@ -40,23 +40,34 @@ function init() {
 function render() {
 	board.forEach(function(cellVal, cellIdx) { //look up params for forEach. This was a blocker.
 		cellEls[cellIdx].style.backgroundColor = players[cellVal];
-    });
-	if (winner) {
-		msgEl.innerHTML = `<span style="color: ${players[turn]}">${players[turn].toUpperCase()}</span> wins!`;	
-	} else if (winner === 't') {
+	});
+	if (winner === 't') {
 		msgEl.innerHTML = `Cat's Game!`;
+	} else if (winner) {
+		msgEl.innerHTML = `<span style="color: ${players[winner]}">${players[winner].toUpperCase()}'s</span> wins!`;
 	} else {
-		msgEl.innerHTML = `<span style="color: ${players[turn]}">${players[turn].toUpperCase()}'s</span> turn!`;	
+		msgEl.innerHTML = `<span style="color: ${players[turn]}">${players[turn].toUpperCase()}'s</span> turn!`;
 	}
+	// if (winner) {
+	// 	msgEl.innerHTML = `<span style="color: ${players[turn]}">${players[turn].toUpperCase()}'s</span> wins!`;
+	// } else if (winner === 't') {
+	// 	msgEl.innerHTML = `Cat's Game!`;
+	// } else {
+	// 	msgEl.innerHTML = `<span style="color: ${players[turn]}">${players[turn].toUpperCase()}'s</span> turn!`;
+	// }
 }
 
 function handleClick(event) {
 	let currentCellIdx = cellEls.indexOf(event.target);
-	if (board[currentCellIdx] || winner !== null) return;
+	if (board[currentCellIdx] || winner ) {
+		return;
+	}
 	board[currentCellIdx] = turn;
 	turn *= -1;
+	console.log(board[currentCellIdx]);
 	winner = getWinner();
 	render();
+	
 }
 
 function getWinner() {
@@ -115,12 +126,12 @@ function getWinner() {
 		??> 5.6.2) Total up the three board positions using the three indexes in the current combo.
 		??> 5.6.3) Convert the total to an absolute value (convert any negative total to positive).
 		??> 5.6.4) If the total equals 3, we have a winner! Set winner to the board's value at the index specified by the first index in the combo array. Exit the loop.
-	5.7) If there's no winner, check if there's a tie:
+	-->5.7) If there's no winner, check if there's a tie:
 		5.7.1) Set winner to 'T' if there are no more nulls in the board array.
-	5.8) All state has been updated, so render the state to the page (step 4.2).
+	-->5.8) All state has been updated, so render the state to the page (step 4.2).
 		
 
-6) Handle a player clicking the replay button:
-	6.1) Do steps 4.1 (initialize the state variables) and 4.2 (render).
+-->6) Handle a player clicking the replay button:
+	--> 6.1) Do steps 4.1 (initialize the state variables) and 4.2 (render).
 
 ----- end pseudocode -----*/
